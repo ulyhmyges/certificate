@@ -24,10 +24,9 @@ contract ESGIScript is Script {
 
         // update URI
         nft.updateNFT(1, "QmcFhGCkaeb3w9L9Mr7USF7ZD3pn2VRGNsbjYf3Xz5SAtB");
-        console.log(nft.tokenURI(1));
-        console.log(nft.getURIByDayRevert(1, 0));
-        console.log(nft.getURIByDayRevert(1, 2));
-        console.log(nft.getURIByDayRevert(1, 1));
+        console.log(nft.tokenURI(1));               // https://ipfs.io/ipfs/QmcFhGCkaeb3w9L9Mr7USF7ZD3pn2VRGNsbjYf3Xz5SAtB
+        console.log(nft.getURIByDayRevert(1, 0));   // QmcFhGCkaeb3w9L9Mr7USF7ZD3pn2VRGNsbjYf3Xz5SAtB
+        console.log(nft.getURIByDayRevert(1, 1));   // QmVXxHUWE2fdNjMxerzgWNJNeR8tu1F61KYY6BjDo2LRMA
     
         vm.stopBroadcast();
     }

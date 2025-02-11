@@ -1,0 +1,28 @@
+{
+    "year": "3rd Year",
+    "studentId": "ESGI-001",
+    "studentName": "Toto",
+    "courses": [
+        {
+            "courseName": "Starknet",
+            "grade": "TB",
+            "result": "18/20",
+            "comments": "very punctual, active participation"
+        },
+        {
+            "courseName": "Machine Learning",
+            "grade": "B",
+            "result": "13.5/20",
+            "comments": "quite well"
+        }
+    ],
+    "yearStartDate": "2022-09-01",
+    "yearEndDate": "2023-06-30",
+    "academicStatus": {
+        "status": "SUCCESS",
+        "comments": "Very good understanding of blockchain concepts. Participated in ETH Hackathon 2023"
+    },
+    "ipfsCID": "ipfs cid of the 3rd year metadata",
+    "issuer": "ESGI",
+    "signer": "0xInstitutionSignedData"
+}

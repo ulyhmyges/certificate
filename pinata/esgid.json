@@ -1,0 +1,36 @@
+{
+    "studenId": "ESGI issued student Id",
+    "Program": "Master - Ingénierie de la Blockchain",
+    "tokenId": "32",
+    "year": "2022-2025",
+    "Academic Progress": [
+        {
+            "studenId": "ESGI-0001",
+            "year": "3rd Year",
+            "nftId": "1",
+            "ipfsCid": "ipfs://QmRTfdfdrefdfd" 
+        },
+        {
+            "studenId": "ESGI-0001",
+            "tokenId": "52",
+            "year": "4th Year",
+            "nftId": "52",
+            "ipfsCid": "ipfs://QmRTfdfdrefdfd" 
+        },
+        {
+            "studenId": "ESGI-0001",
+            "tokenId": "1",
+            "year": "3rd Year",
+            "nftId": "109",
+            "ipfsCid": "ipfs://QmRTfdfdrefdfd" 
+        }
+    ],
+    "programStatus": {
+        "status": "ACTIVE", 
+        "certificateIssuedDate": "date_of_NFT_update",
+        "comments": "Final year in progress"
+    },
+    "ipfsCID": "ESGI",
+    "issuer": "ESGI",
+    "signer": "0xInstitutionSignedData"
+}

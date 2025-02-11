@@ -8,9 +8,11 @@ contract ESGI is ERC721URIStorage {
     uint256 private idIncrement;
     uint8 constant private LIMIT_DAY=31;
     mapping (uint256 => string[LIMIT_DAY]) private histories;
+    address public owner;
 
-    constructor() ERC721("ESGI", "ESGI") {
+    constructor() ERC721("ESGID", "ESGID") {
         idIncrement = 0;
+        owner = msg.sender;
     }
     function mint(string memory _tokenURI) public returns (uint256) {
         // tokenId
@@ -23,6 +25,14 @@ contract ESGI is ERC721URIStorage {
         histories[idIncrement][0]=_tokenURI;
 
         return idIncrement;
+    }
+
+    modifier onlyOwner {
+        require(msg.sender == owner);
+        _;
+    }
+    function burn(uint256 id) public onlyOwner {
+        _burn(id);
     }
 
     /**
