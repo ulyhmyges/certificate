@@ -6,8 +6,7 @@ import {ERC721URIStorage} from "@openzeppelin/contracts/token/ERC721/extensions/
 
 contract Performance is ERC721URIStorage {
     uint256 private idIncrement;
-    uint8 constant private LIMIT_DAY=31;
-    mapping (uint256 => string[LIMIT_DAY]) private histories;
+    mapping (uint256 => string[10]) private histories;
     address public owner;
 
     constructor() ERC721("Performance", "PERF") {
@@ -78,7 +77,7 @@ contract Performance is ERC721URIStorage {
     * @param _tokenURI The new URI to be added to the history.
     */
     function updateHistory(uint256 _tokenId, string memory _tokenURI) public {
-        for (uint8 index=LIMIT_DAY - 1; index > 0; --index){
+        for (uint8 index=10 - 1; index > 0; --index){
             histories[_tokenId][index] = histories[_tokenId][ index - 1];
         }
         histories[_tokenId][0]=_tokenURI;
