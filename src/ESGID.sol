@@ -1,19 +1,20 @@
-// SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.13;
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.28;
 
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {ERC721URIStorage} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 contract ESGID is ERC721URIStorage {
     uint256 private idIncrement;
-    uint8 constant private LIMIT_DAY=31;
-    mapping (uint256 => string[LIMIT_DAY]) private histories;
+    uint8 private constant LIMIT_DAY = 31;
+    mapping(uint256 => string[LIMIT_DAY]) private histories;
     address public owner;
 
     constructor() ERC721("ESGID", "ESGID") {
         idIncrement = 0;
         owner = msg.sender;
     }
+
     function mint(string memory _tokenURI) public returns (uint256) {
         // tokenId
         idIncrement++;
@@ -22,15 +23,16 @@ contract ESGID is ERC721URIStorage {
         _setTokenURI(idIncrement, _tokenURI);
 
         // starting history of the NFT
-        histories[idIncrement][0]=_tokenURI;
+        histories[idIncrement][0] = _tokenURI;
 
         return idIncrement;
     }
 
-    modifier onlyOwner {
+    modifier onlyOwner() {
         require(msg.sender == owner);
         _;
     }
+
     function burn(uint256 id) public onlyOwner {
         _burn(id);
     }
@@ -47,40 +49,40 @@ contract ESGID is ERC721URIStorage {
     function getBaseURI() public view returns (string memory) {
         return _baseURI();
     }
-    
+
     /**
-    * @notice Updates the metadata of a given NFT and records the update in its history.
-    * @dev This function updates the token's URI and shifts the history of the token's URIs to record the latest update.
-    * @param _tokenId The unique identifier of the NFT to update.
-    * @param _tokenURI The new URI for the NFT's metadata.
-    */
+     * @notice Updates the metadata of a given NFT and records the update in its history.
+     * @dev This function updates the token's URI and shifts the history of the token's URIs to record the latest update.
+     * @param _tokenId The unique identifier of the NFT to update.
+     * @param _tokenURI The new URI for the NFT's metadata.
+     */
     function updateNFT(uint256 _tokenId, string memory _tokenURI) public {
         _setTokenURI(_tokenId, _tokenURI);
         updateHistory(_tokenId, _tokenURI);
     }
 
     /**
-    * @notice Retrieves the URI of an NFT as it was a specified number of days ago.
-    * @dev The `_dayRevert` parameter must be less than 31, as only the history of the last 30 days is retained.
-    * @param _tokenId The unique identifier of the NFT.
-    * @param _dayRevert The number of days ago to retrieve the URI (0 for the most recent, up to 30 days ago).
-    * @return The URI of the NFT from the specified day in its history.
-    */
+     * @notice Retrieves the URI of an NFT as it was a specified number of days ago.
+     * @dev The `_dayRevert` parameter must be less than 31, as only the history of the last 30 days is retained.
+     * @param _tokenId The unique identifier of the NFT.
+     * @param _dayRevert The number of days ago to retrieve the URI (0 for the most recent, up to 30 days ago).
+     * @return The URI of the NFT from the specified day in its history.
+     */
     function getURIByDayRevert(uint256 _tokenId, uint8 _dayRevert) public view returns (string memory) {
-        require(_dayRevert < 31, 'Only the last 30 days');
+        require(_dayRevert < 31, "Only the last 30 days");
         return histories[_tokenId][_dayRevert];
     }
 
     /**
-    * @notice Updates the URI history of an NFT by adding the latest URI at the beginning and shifting older entries.
-    * @dev This function modifies the `histories` mapping for the specified token ID, preserving only the most recent 30 entries.
-    * @param _tokenId The unique identifier of the NFT whose history is being updated.
-    * @param _tokenURI The new URI to be added to the history.
-    */
+     * @notice Updates the URI history of an NFT by adding the latest URI at the beginning and shifting older entries.
+     * @dev This function modifies the `histories` mapping for the specified token ID, preserving only the most recent 30 entries.
+     * @param _tokenId The unique identifier of the NFT whose history is being updated.
+     * @param _tokenURI The new URI to be added to the history.
+     */
     function updateHistory(uint256 _tokenId, string memory _tokenURI) public {
-        for (uint8 index=LIMIT_DAY - 1; index > 0; --index){
-            histories[_tokenId][index] = histories[_tokenId][ index - 1];
+        for (uint8 index = LIMIT_DAY - 1; index > 0; --index) {
+            histories[_tokenId][index] = histories[_tokenId][index - 1];
         }
-        histories[_tokenId][0]=_tokenURI;
+        histories[_tokenId][0] = _tokenURI;
     }
 }

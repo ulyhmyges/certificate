@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.13;
+pragma solidity 0.8.28;
 
 import "forge-std/Test.sol";
 import "../src/Performance.sol";
@@ -21,7 +21,6 @@ contract PerformanceTest is Test {
         string memory tokenURI = "https://ipfs.io/ipfs/QmTokenURI";
         uint256 tokenId = performance.mint(ipfsId);
 
-
         assertEq(performance.ownerOf(tokenId), address(0xbc0993f0a5C6Cd8c56897305D0666A1C5A2B416a));
         assertEq(performance.tokenURI(tokenId), tokenURI);
         vm.stopBroadcast();
@@ -33,7 +32,7 @@ contract PerformanceTest is Test {
 
         uint256 tokenId = performance.mint(ipfsId);
         performance.burn(tokenId);
-        
+
         vm.expectRevert();
         performance.ownerOf(tokenId);
         vm.stopBroadcast();
